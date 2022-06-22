@@ -123,7 +123,7 @@ class AppCell: UICollectionViewCell {
     
     let imageAppView: UIImageView = {
         let imageAppView = UIImageView()
-        imageAppView.image = UIImage(named: "disney+")
+        //imageAppView.image = UIImage(named: "disney+")
         imageAppView.contentMode = .scaleAspectFill
         imageAppView.layer.cornerRadius = 16
         imageAppView.layer.masksToBounds = true

@@ -65,7 +65,6 @@
 			isa = PBXGroup;
 			children = (
 				9047F1A328468DDD0017B1E0 /* App */,
-				9047F198284686190017B1E0 /* MainTabBarController.swift */,
 				9047F1A228468DC70017B1E0 /* Controllers */,
 				9047F1A62846942B0017B1E0 /* Cell */,
 				909FC34028589F330051E6AE /* Models */,
@@ -77,6 +76,7 @@
 		9047F1A228468DC70017B1E0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9047F198284686190017B1E0 /* MainTabBarController.swift */,
 				9047F188284682450017B1E0 /* TodayViewController.swift */,
 				9047F19A28468A9C0017B1E0 /* AppsViewController.swift */,
 				9047F19E28468B2D0017B1E0 /* SearchViewController.swift */,
