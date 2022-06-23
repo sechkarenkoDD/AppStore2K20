@@ -12,9 +12,17 @@ class TodayViewController: UICollectionViewController, UICollectionViewDelegateF
     private let featureCellID = "featureCellID"
     private var appList: AppList?
     
+    init() {
+        super.init(collectionViewLayout: UICollectionViewFlowLayout())
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigation(withTitle: "Today", withLargeTitles: true)
+
         collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: featureCellID)
         showApp()
     }
@@ -34,11 +42,7 @@ class TodayViewController: UICollectionViewController, UICollectionViewDelegateF
         return CGSize(width: view.frame.width, height: 200)
     }
     
-    func setupNavigation(withTitle title: String, withLargeTitles: Bool) {
-        navigationItem.title = title
-        navigationController?.navigationBar.prefersLargeTitles = withLargeTitles
-    }
-    
+
     private func showApp() {
         Task {
             do {
