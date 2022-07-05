@@ -9,7 +9,7 @@ import UIKit
 
 class TodayViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    private let featureCellID = "featureCellID"
+    private let todayID = "todayID"
     private var appList: AppList?
     
     init() {
@@ -23,7 +23,7 @@ class TodayViewController: UICollectionViewController, UICollectionViewDelegateF
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: featureCellID)
+        collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: todayID)
         showApp()
     }
     
@@ -33,7 +33,7 @@ class TodayViewController: UICollectionViewController, UICollectionViewDelegateF
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: featureCellID, for: indexPath) as! CategoryCell
+        let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: todayID, for: indexPath) as! CategoryCell
         
         return cell
     }

@@ -7,6 +7,11 @@
 
 import Foundation
 
+enum LinksURL: String {
+    case seatch = "https://itunes.apple.com/search?term=instagram&entity=software"
+    case letsbuildthatapp = "https://api.letsbuildthatapp.com/appstore/featured"
+}
+
 enum NetworkError: Error {
     case invalidURL
     case noData
@@ -17,8 +22,17 @@ class NetworkManager {
     static let shered = NetworkManager()
     private init() {}
     
+    func fetchSearchApp(completion: @escaping(Result<SearchResult, NetworkError>) -> Void) {
+        fechData(urlString: LinksURL.seatch.rawValue, completion: completion)
+    }
+    
     func fetchApp(completion: @escaping(Result<AppList, NetworkError>) -> Void) {
-        guard let url = URL(string: "https://api.letsbuildthatapp.com/appstore/featured") else {
+        fechData(urlString: LinksURL.letsbuildthatapp.rawValue, completion: completion)
+    }
+    
+    private func fechData<T: Decodable>(urlString: String, completion: @escaping (Result<T, NetworkError>) -> Void) {
+        
+        guard let url = URL(string: urlString) else {
             completion(.failure(.invalidURL))
             return
         }
@@ -32,9 +46,10 @@ class NetworkManager {
             do {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
-                let appList = try decoder.decode(AppList.self, from: data)
+                let data = try decoder.decode(T.self, from: data)
+                
                 DispatchQueue.main.async {
-                    completion(.success(appList))
+                    completion(.success(data))
                 }
             } catch let error {
                 print(error.localizedDescription)
@@ -42,10 +57,13 @@ class NetworkManager {
             
         }.resume()
     }
+}
+
+extension NetworkManager {
     
     func fetchAppWithContinuations() async throws -> AppList {
         try await withCheckedThrowingContinuation { continuation in
-            fetchApp { result in
+            fetchApp() { result in
                 switch result {
                 case .success(let appList):
                     continuation.resume(returning: appList)
@@ -55,6 +73,20 @@ class NetworkManager {
             }
         }
     }
+    
+    func fetchSearchAppWithContinuations() async throws -> SearchResult {
+        try await withCheckedThrowingContinuation { continuation in
+            fetchSearchApp() { result in
+                switch result {
+                case .success(let appList):
+                    continuation.resume(returning: appList)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+    
 }
 
 
