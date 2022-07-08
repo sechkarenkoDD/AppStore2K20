@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C0188FB6A5A7066001E1836 /* Pods_AppStore2K20.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E62A8012E9625B5A6EC44D84 /* Pods_AppStore2K20.framework */; };
 		90070F0828737E8E00E5ED07 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90070F0728737E8E00E5ED07 /* SearchResult.swift */; };
 		9047F185284682450017B1E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9047F184284682450017B1E0 /* AppDelegate.swift */; };
 		9047F189284682450017B1E0 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9047F188284682450017B1E0 /* TodayViewController.swift */; };
@@ -24,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4DA6B50C982C235C377DBC40 /* Pods-AppStore2K20.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStore2K20.release.xcconfig"; path = "Target Support Files/Pods-AppStore2K20/Pods-AppStore2K20.release.xcconfig"; sourceTree = "<group>"; };
+		54E8DC91CECBEFD89DC06952 /* Pods-AppStore2K20.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStore2K20.debug.xcconfig"; path = "Target Support Files/Pods-AppStore2K20/Pods-AppStore2K20.debug.xcconfig"; sourceTree = "<group>"; };
 		90070F0728737E8E00E5ED07 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		9047F181284682450017B1E0 /* AppStore2K20.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppStore2K20.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9047F184284682450017B1E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -40,6 +43,7 @@
 		9073A76F286C6E9100113E19 /* VerticalStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
 		909FC33E28589F170051E6AE /* AppList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppList.swift; sourceTree = "<group>"; };
 		909FC3412858A62D0051E6AE /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		E62A8012E9625B5A6EC44D84 /* Pods_AppStore2K20.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppStore2K20.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,17 +51,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C0188FB6A5A7066001E1836 /* Pods_AppStore2K20.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E25454DCB13E4A296E4B9C5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E62A8012E9625B5A6EC44D84 /* Pods_AppStore2K20.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		785313975143250B14A9BF26 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				54E8DC91CECBEFD89DC06952 /* Pods-AppStore2K20.debug.xcconfig */,
+				4DA6B50C982C235C377DBC40 /* Pods-AppStore2K20.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		9047F178284682450017B1E0 = {
 			isa = PBXGroup;
 			children = (
 				9047F183284682450017B1E0 /* AppStore2K20 */,
 				9047F182284682450017B1E0 /* Products */,
+				785313975143250B14A9BF26 /* Pods */,
+				2E25454DCB13E4A296E4B9C5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -146,9 +171,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9047F195284682460017B1E0 /* Build configuration list for PBXNativeTarget "AppStore2K20" */;
 			buildPhases = (
+				E179066EF5CAB055983656E3 /* [CP] Check Pods Manifest.lock */,
 				9047F17D284682450017B1E0 /* Sources */,
 				9047F17E284682450017B1E0 /* Frameworks */,
 				9047F17F284682450017B1E0 /* Resources */,
+				A33BCA00FFF8D543EB9371DE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -203,6 +230,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A33BCA00FFF8D543EB9371DE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AppStore2K20/Pods-AppStore2K20-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AppStore2K20/Pods-AppStore2K20-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AppStore2K20/Pods-AppStore2K20-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E179066EF5CAB055983656E3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AppStore2K20-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9047F17D284682450017B1E0 /* Sources */ = {
@@ -354,6 +423,7 @@
 		};
 		9047F196284682460017B1E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 54E8DC91CECBEFD89DC06952 /* Pods-AppStore2K20.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -383,6 +453,7 @@
 		};
 		9047F197284682460017B1E0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DA6B50C982C235C377DBC40 /* Pods-AppStore2K20.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

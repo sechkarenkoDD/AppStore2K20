@@ -8,7 +8,6 @@
 import Foundation
 
 enum LinksURL: String {
-    case seatch = "https://itunes.apple.com/search?term=instagram&entity=software"
     case letsbuildthatapp = "https://api.letsbuildthatapp.com/appstore/featured"
 }
 
@@ -22,8 +21,9 @@ class NetworkManager {
     static let shered = NetworkManager()
     private init() {}
     
-    func fetchSearchApp(completion: @escaping(Result<SearchResult, NetworkError>) -> Void) {
-        fechData(urlString: LinksURL.seatch.rawValue, completion: completion)
+    func fetchSearchApp(searchTerm: String, completion: @escaping(Result<SearchResult, NetworkError>) -> Void) {
+        let url = "https://itunes.apple.com/search?term=\(searchTerm)&entity=software"
+        fechData(urlString: url, completion: completion)
     }
     
     func fetchApp(completion: @escaping(Result<AppList, NetworkError>) -> Void) {
@@ -74,9 +74,9 @@ extension NetworkManager {
         }
     }
     
-    func fetchSearchAppWithContinuations() async throws -> SearchResult {
+    func fetchSearchAppWithContinuations(searchTerm: String) async throws -> SearchResult {
         try await withCheckedThrowingContinuation { continuation in
-            fetchSearchApp() { result in
+            fetchSearchApp(searchTerm: searchTerm) { result in
                 switch result {
                 case .success(let appList):
                     continuation.resume(returning: appList)

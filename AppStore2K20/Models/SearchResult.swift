@@ -9,7 +9,7 @@ import Foundation
 
 struct SearchResult: Decodable {
     let resultCount: Int
-    let results: [ResultApp]
+    var results: [ResultApp]
 }
 
 struct ResultApp: Decodable {
