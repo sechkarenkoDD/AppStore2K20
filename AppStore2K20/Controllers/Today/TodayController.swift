@@ -7,42 +7,33 @@
 
 import UIKit
 
-class TodayViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class TodayController: BaseListController {
     
     private let todayID = "todayID"
     private var appList: AppList?
     
-    init() {
-        super.init(collectionViewLayout: UICollectionViewFlowLayout())
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: todayID)
-        showApp()
+        
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: todayID)
+        //showApp()
     }
     
     // MARK: - CollectionViewDataSourse
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        appList?.categories.count ?? 0
+        5
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: todayID, for: indexPath) as! CategoryCell
+        let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: todayID, for: indexPath)
         
         return cell
     }
-    // MARK: - CollectionViewDelegate
+    // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 200)
+        CGSize(width: view.frame.width, height: 200)
     }
     
-
     private func showApp() {
         Task {
             do {

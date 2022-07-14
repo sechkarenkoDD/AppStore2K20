@@ -7,9 +7,9 @@
 
 import UIKit
 
-class SearchViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class AppsSearchController: BaseListController {
     
-    private let searchID = "searchID"
+    private let cellID = "cellID"
     private var searchResult: SearchResult?
     private let searchController = UISearchController(searchResultsController: nil)
     private var timer: Timer?
@@ -22,39 +22,31 @@ class SearchViewController: UICollectionViewController, UICollectionViewDelegate
         return lable
     }()
     
-    init() {
-        super.init(collectionViewLayout: UICollectionViewFlowLayout())
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupSearchBar()
-        collectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: searchID)
+        collectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: cellID)
 
         collectionView.addSubview(enterSearchTermLable)
         enterSearchTermLable.fillSuperview(padding: UIEdgeInsets(top: 200, left: 40, bottom: 0, right: 40))
     }
     
-    // MARK: - CollectionViewDataSourse
+    // MARK: - UICollectionViewDataSourse
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return searchResult?.results.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: searchID, for: indexPath) as! SearchResultCell
+        let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! SearchResultCell
         
         let searchResult = searchResult?.results[indexPath.item]
         cell.configure(with: searchResult)
         return cell
     }
-    // MARK: - CollectionViewDelegate
+    // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 320)
+        CGSize(width: view.frame.width, height: 315)
     }
     
     private func setupSearchBar() {
@@ -65,11 +57,11 @@ class SearchViewController: UICollectionViewController, UICollectionViewDelegate
     }
 }
 
-extension SearchViewController: UISearchBarDelegate {
+extension AppsSearchController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { [self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { [self] _ in
             Task {
                 do {
                     searchResult = try await NetworkManager.shered.fetchSearchAppWithContinuations(searchTerm: searchText)

@@ -10,50 +10,25 @@ import SDWebImage
 
 class SearchResultCell: UICollectionViewCell {
     
-    let appIconImageView: UIImageView = {
-        let image = UIImageView()
-        image.widthAnchor.constraint(equalToConstant: 64).isActive = true
-        image.heightAnchor.constraint(equalToConstant: 64).isActive = true
-        image.layer.cornerRadius = 12
-        image.clipsToBounds = true
-        return image
-    }()
+    private let appIconImageView = UIImageView(cornerRadius: 15)
     
-    let nameLabel: UILabel = {
-        let lable = UILabel()
-        lable.font = UIFont.systemFont(ofSize: 16)
-        return lable
-    }()
+    private let nameLabel = UILabel(font: .systemFont(ofSize: 16))
+    private let categoryLabel = UILabel(font: .systemFont(ofSize: 14), textColor: .gray)
+    private let ratingsLabel = UILabel(font: .systemFont(ofSize: 14), textColor: .gray)
     
-    let categoryLabel: UILabel = {
-        let lable = UILabel()
-        lable.font = UIFont.systemFont(ofSize: 14)
-        lable.textColor = .gray
-        return lable
-    }()
-    
-    let ratingsLabel: UILabel = {
-        let lable = UILabel()
-        lable.font = UIFont.systemFont(ofSize: 14)
-        lable.textColor = .gray
-        return lable
-    }()
-    
-    let getButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Get", for: .normal)
-        button.titleLabel?.font = .boldSystemFont(ofSize: 14)
-        button.backgroundColor = UIColor(white: 0.95, alpha: 1)
-        button.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 32).isActive = true
-        button.layer.cornerRadius = 16
-        return button
-    }()
+    private let getButton = UIButton(title: "Get",
+                             titleFont: .boldSystemFont(ofSize: 14),
+                             cornerRadius: 16)
     
     lazy var screennshotsImage = createScreenshotsImageView(number: 3)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        appIconImageView.constrainWidth(constant: 64)
+        appIconImageView.constrainHeight(constant: 64)
+        
+        getButton.constrainWidth(constant: 80)
+        getButton.constrainHeight(constant: getButton.layer.cornerRadius / 2)
         
         let labelStackView = VerticalStackView(arrangedSubviews: [
             nameLabel, categoryLabel, ratingsLabel
@@ -98,11 +73,8 @@ class SearchResultCell: UICollectionViewCell {
         var imageViews = [UIImageView]()
         
         for _ in 1...number {
-            let imageView = UIImageView()
-            imageView.layer.cornerRadius = 10
-            imageView.clipsToBounds = true
-            imageView.layer.borderWidth = 0.5
-            imageViews.append(imageView)
+            let image = UIImageView(cornerRadius: 5)
+            imageViews.append(image)
         }
         
         return imageViews
