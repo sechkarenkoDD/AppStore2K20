@@ -13,12 +13,6 @@ class AppsGroupCell: UICollectionViewCell {
     
     private let horizontalController = AppHorizontalController()
     
-    private lazy var dividerLineView: UIView = {
-        let dividerLineView = UIView()
-        dividerLineView.backgroundColor = UIColor(white: 0.4, alpha: 0.4)
-        return dividerLineView
-    }()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         

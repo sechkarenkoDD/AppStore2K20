@@ -20,7 +20,6 @@ class AppRowCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        imageAppView.backgroundColor = .purple
         imageAppView.constrainWidth(constant: 64)
         imageAppView.constrainHeight(constant: 64)
         
