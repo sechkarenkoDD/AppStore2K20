@@ -21,8 +21,6 @@ class AppsHeaderCell: UICollectionViewCell {
         titleLabel.text = "Keeping up with friends is faster then ever"
         titleLabel.numberOfLines = 2
         
-        imageView.backgroundColor = .red
-        
         let stackView = VerticalStackView(
             arrangedSubviews: [companyLabel, titleLabel, imageView],
             spacing: 12
@@ -33,5 +31,11 @@ class AppsHeaderCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(with result: SocialApp?) {
+        companyLabel.text = result?.name
+        titleLabel.text = result?.tagline
+        imageView.sd_setImage(with: URL(string: result?.imageUrl ?? ""))
     }
 }

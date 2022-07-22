@@ -64,7 +64,7 @@ extension AppsSearchController: UISearchBarDelegate {
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { [self] _ in
             Task {
                 do {
-                    searchResult = try await NetworkManager.shered.fetchSearchAppWithContinuations(searchTerm: searchText)
+                    searchResult = try await NetworkManager.shered.fetchSearchAppsContinuations(searchTerm: searchText)
                     collectionView.reloadData()
                     enterSearchTermLable.isHidden = searchText.count != 0
                 } catch {

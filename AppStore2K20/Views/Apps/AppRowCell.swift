@@ -24,9 +24,6 @@ class AppRowCell: UICollectionViewCell {
         imageAppView.constrainWidth(constant: 64)
         imageAppView.constrainHeight(constant: 64)
         
-        nameLable.text = "App Name"
-        companyLable.text = "Company Name"
-        
         getButton.constrainWidth(constant: 80)
         getButton.constrainHeight(constant: getButton.layer.cornerRadius * 2)
         
@@ -40,11 +37,16 @@ class AppRowCell: UICollectionViewCell {
         
         addSubview(stackView)
         stackView.fillSuperview()
-        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(with result: FeedResult?) {
+        nameLable.text = result?.name
+        companyLable.text = result?.artistName
+        imageAppView.sd_setImage(with: URL(string: result?.artworkUrl100 ?? ""))
     }
     
 }

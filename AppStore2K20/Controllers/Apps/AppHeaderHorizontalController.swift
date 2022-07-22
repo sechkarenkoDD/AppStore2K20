@@ -11,6 +11,8 @@ class AppHeaderHorizontalController: BaseListController {
     
     private let cellID = "cellID"
     
+    var socialApps: [SocialApp]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
@@ -18,15 +20,18 @@ class AppHeaderHorizontalController: BaseListController {
         }
         
         collectionView.register(AppsHeaderCell.self, forCellWithReuseIdentifier: cellID)
+        collectionView.showsHorizontalScrollIndicator = false
     }
     
     // MARK: - UICollectionViewDataSourse
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        5
+        socialApps?.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! AppsHeaderCell
+        let socialApp = socialApps?[indexPath.item]
+        cell.configure(with: socialApp)
         return cell
     }
     

@@ -28,7 +28,7 @@ class SearchResultCell: UICollectionViewCell {
         appIconImageView.constrainHeight(constant: 64)
         
         getButton.constrainWidth(constant: 80)
-        getButton.constrainHeight(constant: getButton.layer.cornerRadius / 2)
+        getButton.constrainHeight(constant: getButton.layer.cornerRadius * 2)
         
         let labelStackView = VerticalStackView(arrangedSubviews: [
             nameLabel, categoryLabel, ratingsLabel
@@ -57,15 +57,15 @@ class SearchResultCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with resultApp: ResultApp?) {
-        nameLabel.text = resultApp?.trackName
-        categoryLabel.text = resultApp?.primaryGenreName
-        ratingsLabel.text = "Rating: \(resultApp?.averageUserRating ?? 0)"
+    func configure(with result: ResultApp?) {
+        nameLabel.text = result?.trackName
+        categoryLabel.text = result?.primaryGenreName
+        ratingsLabel.text = "Rating: \(result?.averageUserRating ?? 0)"
         
-        let urlIcon = URL(string: resultApp?.artworkUrl100 ?? "")
+        let urlIcon = URL(string: result?.artworkUrl100 ?? "")
         appIconImageView.sd_setImage(with: urlIcon)
         
-        fechURLScreenshots(with: resultApp, forImages: screennshotsImage)
+        fechURLScreenshots(with: result, forImages: screennshotsImage)
     }
     
     private func createScreenshotsImageView(number: Int) -> [UIImageView] {

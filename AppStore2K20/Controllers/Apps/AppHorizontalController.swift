@@ -11,6 +11,8 @@ class AppHorizontalController: BaseListController {
     
     private let cellID = "cellID"
     
+    var appGroup: AppGroup?
+    
     private let topBottomPadding: CGFloat = 12
     private let lineSpacing: CGFloat = 10
     
@@ -21,16 +23,19 @@ class AppHorizontalController: BaseListController {
         }
         
         collectionView.register(AppRowCell.self, forCellWithReuseIdentifier: cellID)
+        collectionView.showsHorizontalScrollIndicator = false
         
     }
     
     // MARK: - UICollectionViewDataSourse
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        6
+        appGroup?.feed.results.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! AppRowCell
+        let feedResult = appGroup?.feed.results[indexPath.item]
+        cell.configure(with: feedResult)
         return cell
     }
     

@@ -19,11 +19,9 @@ class AppsGroupCell: UICollectionViewCell {
         return dividerLineView
     }()
     
-    private let appCellID = "appCellID"
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        titleLabel.text = "App Section"
+        
         addSubview(titleLabel)
         titleLabel.anchor(
             top: topAnchor,
@@ -32,6 +30,7 @@ class AppsGroupCell: UICollectionViewCell {
             trailing: trailingAnchor,
             padding: UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16)
         )
+        
         addSubview(horizontalController.view)
         horizontalController.view.anchor(
             top: titleLabel.bottomAnchor,
@@ -43,6 +42,11 @@ class AppsGroupCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(with result: AppGroup?) {
+        titleLabel.text = result?.feed.title
+        horizontalController.appGroup = result
     }
 }
 

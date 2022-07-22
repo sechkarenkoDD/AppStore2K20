@@ -10,7 +10,7 @@ import UIKit
 class TodayController: BaseListController {
     
     private let todayID = "todayID"
-    private var appList: AppList?
+    private var appList: AppGroup?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,15 +34,14 @@ class TodayController: BaseListController {
         CGSize(width: view.frame.width, height: 200)
     }
     
-    private func showApp() {
-        Task {
-            do {
-                appList = try await NetworkManager.shered.fetchAppWithContinuations()
-                collectionView.reloadData()
-            } catch {
-                print(error)
-            }
-        }
-    }
+//    private func showApp() {
+//        Task {
+//            do {
+//
+//            } catch {
+//                print(error)
+//            }
+//        }
+//    }
 }
 
