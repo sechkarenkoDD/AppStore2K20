@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AppsSearchController: BaseListController {
+class AppsSearchController: BaseListController, UICollectionViewDelegateFlowLayout {
     
     private let cellID = "cellID"
     private var searchResult: SearchResult?
@@ -27,7 +27,7 @@ class AppsSearchController: BaseListController {
         
         setupSearchBar()
         collectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: cellID)
-
+        
         collectionView.addSubview(enterSearchTermLable)
         enterSearchTermLable.fillSuperview(padding: UIEdgeInsets(top: 200, left: 40, bottom: 0, right: 40))
     }
@@ -61,22 +61,28 @@ extension AppsSearchController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { [self] _ in
-            Task {
-                do {
-                    searchResult = try await NetworkManager.shered.fetchSearchAppsContinuations(searchTerm: searchText)
-                    collectionView.reloadData()
-                    enterSearchTermLable.isHidden = searchText.count != 0
-                } catch {
+        timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
+            
+            NetworkManager.shered.fetchSearchApps(request: searchText) { [weak self] result in
+                switch result {
+                case .success(let appList):
+                    self?.searchResult = appList
+                    DispatchQueue.main.async {
+                        self?.collectionView.reloadData()
+                        self?.enterSearchTermLable.isHidden = searchText.count != 0
+                    }
+                case .failure(let error):
                     print(error)
                 }
             }
         }
     }
     
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchResult?.results.removeAll()
         collectionView.reloadData()
         enterSearchTermLable.isHidden = false
+        
     }
 }

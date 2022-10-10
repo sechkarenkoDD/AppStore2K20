@@ -14,14 +14,14 @@ class MainTabBarController: UITabBarController {
         
         viewControllers = [
             addCreateNavigationController(
-                viewController: TodayController(),
-                withTitle: "Today",
-                andImageTabBar: "doc.text.image"),
-            
-            addCreateNavigationController(
                 viewController: AppsPageController(),
                 withTitle: "Apps",
                 andImageTabBar: "square.stack.3d.up.fill"),
+            
+            addCreateNavigationController(
+                viewController: TodayController(),
+                withTitle: "Today",
+                andImageTabBar: "doc.text.image"),
             
             addCreateNavigationController(
                 viewController: AppsSearchController(),

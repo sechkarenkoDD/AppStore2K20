@@ -7,24 +7,20 @@
 
 import UIKit
 
-class AppHorizontalController: BaseListController {
-    
-    private let cellID = "cellID"
+class AppHorizontalController: HorizontalSnappingController, UICollectionViewDelegateFlowLayout {
     
     var appGroup: AppGroup?
+    var didSelectHandler: ((FeedResult) -> ())?
     
+    private let cellID = "cellID"
     private let topBottomPadding: CGFloat = 12
     private let lineSpacing: CGFloat = 10
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
-        }
-        
         collectionView.register(AppRowCell.self, forCellWithReuseIdentifier: cellID)
         collectionView.showsHorizontalScrollIndicator = false
-        
+        collectionView.contentInset = .init(top: topBottomPadding, left: 16, bottom: topBottomPadding, right: 16)
     }
     
     // MARK: - UICollectionViewDataSourse
@@ -41,12 +37,15 @@ class AppHorizontalController: BaseListController {
     
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height = (view.frame.height - (2 * topBottomPadding) - (2 * lineSpacing)) / 3
+        let height = (view.frame.height - 2 * topBottomPadding - 2 * lineSpacing) / 3
         return CGSize(width: view.frame.width - 48, height: height)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: topBottomPadding, left: 16, bottom: topBottomPadding, right: 16)
+    // MARK: - UICollectionViewDelegate
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let app = appGroup?.feed.results[indexPath.item] {
+            didSelectHandler?(app)
+        }
     }
     
 }

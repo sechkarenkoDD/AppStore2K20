@@ -9,9 +9,8 @@ import UIKit
 
 class AppsHeaderCell: UICollectionViewCell {
     
-    private let companyLabel = UILabel(font: .boldSystemFont(ofSize: 12))
-    private let titleLabel = UILabel(font: .systemFont(ofSize: 24))
-    
+    private let companyLabel = UILabel(text: "Company", font: .boldSystemFont(ofSize: 16))
+    private let titleLabel = UILabel(text: "Title", font: .systemFont(ofSize: 24))
     private let imageView = UIImageView(cornerRadius: 8)
     
     override init(frame: CGRect) {
@@ -24,14 +23,14 @@ class AppsHeaderCell: UICollectionViewCell {
             spacing: 12
         )
         addSubview(stackView)
-        stackView.fillSuperview(padding: UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0))
+        stackView.fillSuperview()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with result: SocialApp?) {
+    func configure(with result: BannerApp?) {
         companyLabel.text = result?.name
         titleLabel.text = result?.tagline
         imageView.sd_setImage(with: URL(string: result?.imageUrl ?? ""))

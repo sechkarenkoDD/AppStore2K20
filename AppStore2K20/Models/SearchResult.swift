@@ -9,13 +9,17 @@ import Foundation
 
 struct SearchResult: Decodable {
     let resultCount: Int
-    var results: [ResultApp]
+    var results: [AppResult]
 }
 
-struct ResultApp: Decodable {
+struct AppResult: Decodable {
     let trackName: String
     let primaryGenreName: String
     var averageUserRating: Float?
     let screenshotUrls: [String]
     let artworkUrl100: String // app icon
+    let formattedPrice: String
+    let description: String
+    let releaseNotes: String
+    let version: String
 }

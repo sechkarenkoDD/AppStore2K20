@@ -9,9 +9,9 @@ import UIKit
 
 class AppsGroupCell: UICollectionViewCell {
     
-    private let titleLabel = UILabel(font: .boldSystemFont(ofSize: 30))
+    let horizontalController = AppHorizontalController()
     
-    private let horizontalController = AppHorizontalController()
+    private let titleLabel = UILabel(text: "Title", font: .boldSystemFont(ofSize: 25))
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,7 +22,7 @@ class AppsGroupCell: UICollectionViewCell {
             leading: leadingAnchor,
             bottom: nil,
             trailing: trailingAnchor,
-            padding: UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16)
+            padding: UIEdgeInsets(top: 12, left: 16, bottom: 0, right: 16)
         )
         
         addSubview(horizontalController.view)

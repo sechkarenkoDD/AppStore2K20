@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 
-class BaseListController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class BaseListController: UICollectionViewController {
     
     init() {
         super.init(collectionViewLayout: UICollectionViewFlowLayout())

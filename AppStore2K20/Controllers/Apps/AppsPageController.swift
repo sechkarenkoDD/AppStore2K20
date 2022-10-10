@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AppsPageController: BaseListController {
+class AppsPageController: BaseListController, UICollectionViewDelegateFlowLayout {
     
     private let cellID = "appsID"
     private let hederID = "hederID"
@@ -20,14 +20,13 @@ class AppsPageController: BaseListController {
         return activity
     }()
     
-    private var appsGroup: [AppGroup]?
-    private var socialApp: [SocialApp]?
+    private var appsGroup = [AppGroup]()
+    private var bannersApp = [BannerApp]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.register(AppsGroupCell.self, forCellWithReuseIdentifier: cellID)
         
-        // For section header
         collectionView.register(AppsPageHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: hederID)
         
         view.addSubview(activityIndicatorView)
@@ -38,22 +37,26 @@ class AppsPageController: BaseListController {
     
     // MARK: - UICollectionViewDataSourse
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        appsGroup?.count ?? 0
+        appsGroup.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! AppsGroupCell
-        let appGroup = appsGroup?[indexPath.item]
+        let appGroup = appsGroup[indexPath.item]
         cell.configure(with: appGroup)
+        cell.horizontalController.didSelectHandler = { [weak self] feedResult in
+            let appDetailController = AppDetailController()
+            appDetailController.appId = feedResult.id
+            self?.navigationController?.pushViewController(appDetailController, animated: true)
+        }
         return cell
     }
     
-    // For section header
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let heder = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: hederID, for: indexPath) as! AppsPageHeader
-        heder.appHeaderHorizontalController.socialApps = socialApp
-        heder.appHeaderHorizontalController.collectionView.reloadData()
-        return heder
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: hederID, for: indexPath) as! AppsPageHeader
+        header.appHeaderHorizontalController.bannersApps = bannersApp
+        header.appHeaderHorizontalController.collectionView.reloadData()
+        return header
     }
     
     // MARK: - UICollectionViewDelegateFlowLayout
@@ -61,43 +64,64 @@ class AppsPageController: BaseListController {
         CGSize(width: view.frame.width, height: 300)
     }
     
-    // For section header
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         CGSize(width: view.frame.width, height: 300)
     }
     
-    
-    private func fechData(){
-        Task {
-            do {
-                let result = try await withThrowingTaskGroup(of: AppGroup.self) { group -> [AppGroup] in
-                    
-                    for url in [NetworkUrlLinks.topPaid, NetworkUrlLinks.topFree] {
-                        group.addTask { try await NetworkManager.shered.fetchTopAppsContinuations(url: url.rawValue)}
-                    }
-                    
-                    var appsGroup: [AppGroup] = []
-                    
-                    for try await value in group {
-                        appsGroup.append(value)
-                    }
-                    return appsGroup
-                }
-                
-                appsGroup = result
-                collectionView.reloadData()
-                activityIndicatorView.stopAnimating()
-            } catch {
+    private func fechData() {
+        
+        var topPaid: AppGroup?
+        var topFree: AppGroup?
+        
+        // help you sync your data fetches together
+        let dispatchGroup = DispatchGroup()
+        
+        dispatchGroup.enter()
+        NetworkManager.shered.fetchTopPaidApps { result in
+            switch result {
+            case .success(let appList):
+                dispatchGroup.leave()
+                topPaid = appList
+            case .failure(let error):
                 print(error)
             }
         }
         
-        Task {
-            do {
-                socialApp = try await NetworkManager.shered.fetchSocilaAppsContinuations(url: NetworkUrlLinks.socialApp.rawValue)
-                collectionView.reloadData()
+        dispatchGroup.enter()
+        NetworkManager.shered.fetchTopFreeApps { result in
+            switch result {
+            case .success(let appList):
+                dispatchGroup.leave()
+                topFree = appList
+            case .failure(let error):
+                print(error)
             }
+        }
+        
+        dispatchGroup.enter()
+        NetworkManager.shered.fetchBannerApps { [weak self] result in
+            switch result {
+            case .success(let appList):
+                dispatchGroup.leave()
+                self?.bannersApp = appList
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+        // completion
+        dispatchGroup.notify(queue: .main) {
+            self.activityIndicatorView.stopAnimating()
+            
+            if let group = topPaid {
+                self.appsGroup.append(group)
+            }
+            if let group = topFree {
+                self.appsGroup.append(group)
+            }
+            self.collectionView.reloadData()
         }
     }
 }
+
 

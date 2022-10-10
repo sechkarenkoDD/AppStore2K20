@@ -9,14 +9,10 @@ import UIKit
 
 class AppRowCell: UICollectionViewCell {
     
-    private let imageAppView = UIImageView(cornerRadius: 12)
-    
-    private let nameLable = UILabel(font: .systemFont(ofSize: 20))
-    private let companyLable = UILabel(font: .systemFont(ofSize: 14), textColor: .gray)
-    
-    private let getButton = UIButton(title: "Get",
-                             titleFont: .boldSystemFont(ofSize: 14),
-                             cornerRadius: 16)
+    private let imageAppView = UIImageView(cornerRadius: 15)
+    private let nameLable = UILabel(text: "Name", font: .systemFont(ofSize: 20))
+    private let companyLable = UILabel(text: "Company", font: .systemFont(ofSize: 14), textColor: .gray)
+    private let getButton = UIButton(title: "Get", titleFont: .boldSystemFont(ofSize: 14), cornerRadius: 16)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,8 +26,7 @@ class AppRowCell: UICollectionViewCell {
             imageAppView,
             VerticalStackView(arrangedSubviews: [nameLable, companyLable], spacing: 4),
             getButton
-            ])
-        stackView.spacing = 16
+            ], customSpacing: 16)
         stackView.alignment = .center
         
         addSubview(stackView)

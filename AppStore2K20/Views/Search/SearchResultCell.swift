@@ -11,16 +11,12 @@ import SDWebImage
 class SearchResultCell: UICollectionViewCell {
     
     private let appIconImageView = UIImageView(cornerRadius: 15)
+    private let nameLabel = UILabel(text: "App Name", font: .systemFont(ofSize: 16))
+    private let categoryLabel = UILabel(text: "Category", font: .systemFont(ofSize: 14), textColor: .gray)
+    private let ratingsLabel = UILabel(text: "Rating", font: .systemFont(ofSize: 14), textColor: .gray)
+    private let getButton = UIButton(title: "Get", titleFont: .boldSystemFont(ofSize: 14), cornerRadius: 16)
     
-    private let nameLabel = UILabel(font: .systemFont(ofSize: 16))
-    private let categoryLabel = UILabel(font: .systemFont(ofSize: 14), textColor: .gray)
-    private let ratingsLabel = UILabel(font: .systemFont(ofSize: 14), textColor: .gray)
-    
-    private let getButton = UIButton(title: "Get",
-                             titleFont: .boldSystemFont(ofSize: 14),
-                             cornerRadius: 16)
-    
-    lazy var screennshotsImage = createScreenshotsImageView(number: 3)
+    lazy var screennshotsImage = screenshotsImageView(number: 3)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,18 +53,16 @@ class SearchResultCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with result: ResultApp?) {
+    func configure(with result: AppResult?) {
         nameLabel.text = result?.trackName
         categoryLabel.text = result?.primaryGenreName
         ratingsLabel.text = "Rating: \(result?.averageUserRating ?? 0)"
-        
-        let urlIcon = URL(string: result?.artworkUrl100 ?? "")
-        appIconImageView.sd_setImage(with: urlIcon)
+        appIconImageView.sd_setImage(with: URL(string: result?.artworkUrl100 ?? ""))
         
         fechURLScreenshots(with: result, forImages: screennshotsImage)
     }
     
-    private func createScreenshotsImageView(number: Int) -> [UIImageView] {
+    private func screenshotsImageView(number: Int) -> [UIImageView] {
         
         var imageViews = [UIImageView]()
         
@@ -80,14 +74,12 @@ class SearchResultCell: UICollectionViewCell {
         return imageViews
     }
     
-    private func fechURLScreenshots(with resultApp: ResultApp?, forImages screennshotsImage: [UIImageView]) {
+    private func fechURLScreenshots(with resultApp: AppResult?, forImages screennshotsImage: [UIImageView]) {
         
         let urlLinks = resultApp?.screenshotUrls ?? [""]
-        
+    
         for (urlLink, screennshotImage) in zip(urlLinks, screennshotsImage) {
-            let urlScreenshot = URL(string: urlLink)
-            screennshotImage.sd_setImage(with: urlScreenshot)
+            screennshotImage.sd_setImage(with: URL(string: urlLink))
         }
-        
     }
 }
