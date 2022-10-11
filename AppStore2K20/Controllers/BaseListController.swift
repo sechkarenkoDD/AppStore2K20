@@ -5,9 +5,7 @@
 //  Created by Дмитрий Сечкаренко on 11.07.2022.
 //
 
-import Foundation
 import UIKit
-
 
 class BaseListController: UICollectionViewController {
     

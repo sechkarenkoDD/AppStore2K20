@@ -8,7 +8,7 @@
 
 # Используемые технологии
 ## Что реализовано
-- Swift 5.5 (iOS 15.5)
+- Swift 5.5 (iOS 14)
 - UIKit
 - Без Storyboard
 - MVC
