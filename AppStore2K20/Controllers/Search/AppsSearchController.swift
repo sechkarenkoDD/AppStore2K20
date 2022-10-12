@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import SDWebImage
 
 class AppsSearchController: BaseListController, UICollectionViewDelegateFlowLayout {
     
     private let cellID = "cellID"
-    private var searchResult: SearchResult?
+    private var results = [AppResult]()
     private let searchController = UISearchController(searchResultsController: nil)
     private var timer: Timer?
     
@@ -29,24 +30,31 @@ class AppsSearchController: BaseListController, UICollectionViewDelegateFlowLayo
         collectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: cellID)
         
         collectionView.addSubview(enterSearchTermLable)
-        enterSearchTermLable.fillSuperview(padding: UIEdgeInsets(top: 200, left: 40, bottom: 0, right: 40))
+        enterSearchTermLable.fillSuperview(padding: .init(top: 200, left: 40, bottom: 0, right: 40))
     }
     
     // MARK: - UICollectionViewDataSourse
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return searchResult?.results.count ?? 0
+        return results.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! SearchResultCell
         
-        let searchResult = searchResult?.results[indexPath.item]
+        let searchResult = results[indexPath.item]
         cell.configure(with: searchResult)
         return cell
     }
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: view.frame.width, height: 315)
+        .init(width: view.frame.width, height: 315)
+    }
+    
+    // MARK: - UICollectionViewDelegate
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let appId = String(results[indexPath.item].trackId)
+        let appDetailController = AppDetailController(appId: appId)
+        navigationController?.pushViewController(appDetailController, animated: true)
     }
     
     private func setupSearchBar() {
@@ -66,7 +74,7 @@ extension AppsSearchController: UISearchBarDelegate {
             NetworkManager.shered.fetchSearchApps(request: searchText) { [weak self] result in
                 switch result {
                 case .success(let appList):
-                    self?.searchResult = appList
+                    self?.results = appList.results
                     DispatchQueue.main.async {
                         self?.collectionView.reloadData()
                         self?.enterSearchTermLable.isHidden = searchText.count != 0
@@ -80,7 +88,7 @@ extension AppsSearchController: UISearchBarDelegate {
     
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchResult?.results.removeAll()
+        results.removeAll()
         collectionView.reloadData()
         enterSearchTermLable.isHidden = false
         

@@ -45,7 +45,7 @@ class SearchResultCell: UICollectionViewCell {
         
         addSubview(overAllStackView)
         
-        overAllStackView.fillSuperview(padding: UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16))
+        overAllStackView.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))
         
     }
     

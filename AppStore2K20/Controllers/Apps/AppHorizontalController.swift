@@ -38,7 +38,7 @@ class AppHorizontalController: HorizontalSnappingController, UICollectionViewDel
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let height = (view.frame.height - 2 * topBottomPadding - 2 * lineSpacing) / 3
-        return CGSize(width: view.frame.width - 48, height: height)
+        return .init(width: view.frame.width - 48, height: height)
     }
     
     // MARK: - UICollectionViewDelegate

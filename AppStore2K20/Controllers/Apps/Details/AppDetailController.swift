@@ -17,6 +17,16 @@ class AppDetailController: BaseListController, UICollectionViewDelegateFlowLayou
     let previewCellID = "previewCellID"
     let reviewCellID = "reviewCellID"
     
+    // dependency injection constructor
+    init(appId: String) {
+        self.appId = appId
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.largeTitleDisplayMode = .never
@@ -61,16 +71,16 @@ class AppDetailController: BaseListController, UICollectionViewDelegateFlowLayou
             dummyCell.configure(with: app)
             dummyCell.layoutIfNeeded()
             
-            let estimatedSize = dummyCell.systemLayoutSizeFitting(CGSize.init(width: view.frame.width, height: 100))
+            let estimatedSize = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 100))
             
-            return CGSize(width: view.frame.width, height: estimatedSize.height)
+            return .init(width: view.frame.width, height: estimatedSize.height)
         } else if indexPath.item == 1 {
             height = 500
         } else {
             height = 250
         }
         
-        return CGSize(width: view.frame.width, height: height)
+        return .init(width: view.frame.width, height: height)
     }
     
     private func fechData() {

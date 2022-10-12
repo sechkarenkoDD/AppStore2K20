@@ -45,8 +45,7 @@ class AppsPageController: BaseListController, UICollectionViewDelegateFlowLayout
         let appGroup = appsGroup[indexPath.item]
         cell.configure(with: appGroup)
         cell.horizontalController.didSelectHandler = { [weak self] feedResult in
-            let appDetailController = AppDetailController()
-            appDetailController.appId = feedResult.id
+            let appDetailController = AppDetailController(appId: feedResult.id)
             self?.navigationController?.pushViewController(appDetailController, animated: true)
         }
         return cell
@@ -61,12 +60,16 @@ class AppsPageController: BaseListController, UICollectionViewDelegateFlowLayout
     
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: view.frame.width, height: 300)
+        .init(width: view.frame.width, height: 300)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        CGSize(width: view.frame.width, height: 300)
+        .init(width: view.frame.width, height: 300)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+            return .init(top: 0, left: 0, bottom: 16, right: 0)
+        }
     
     private func fechData() {
         

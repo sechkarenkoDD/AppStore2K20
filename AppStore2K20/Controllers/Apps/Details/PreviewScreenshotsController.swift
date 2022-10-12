@@ -36,7 +36,7 @@ class PreviewScreenshotsController: HorizontalSnappingController, UICollectionVi
     }
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize.init(width: 250, height: view.frame.height)
+        .init(width: 250, height: view.frame.height)
     }
 
 }

@@ -39,7 +39,7 @@ class ReviewsController: HorizontalSnappingController, UICollectionViewDelegateF
         
     // MARK: - UICollectionViewDelegateFlowLayout
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            return CGSize.init(width: view.frame.width - 48, height: view.frame.height)
+            return .init(width: view.frame.width - 48, height: view.frame.height)
         }
         
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

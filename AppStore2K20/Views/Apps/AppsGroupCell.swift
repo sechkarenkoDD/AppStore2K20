@@ -22,7 +22,7 @@ class AppsGroupCell: UICollectionViewCell {
             leading: leadingAnchor,
             bottom: nil,
             trailing: trailingAnchor,
-            padding: UIEdgeInsets(top: 12, left: 16, bottom: 0, right: 16)
+            padding: .init(top: 12, left: 16, bottom: 0, right: 16)
         )
         
         addSubview(horizontalController.view)
