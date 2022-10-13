@@ -15,8 +15,9 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.backgroundColor = #colorLiteral(red: 0.9423103929, green: 0.9410001636, blue: 0.9745038152, alpha: 1)
         
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: todayID)
+        collectionView.register(TodayCell.self, forCellWithReuseIdentifier: todayID)
         //showApp()
     }
 
@@ -26,23 +27,23 @@ class TodayController: BaseListController, UICollectionViewDelegateFlowLayout {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: todayID, for: indexPath)
+        let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: todayID, for: indexPath) as! TodayCell
 
         return cell
     }
+    
     // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: view.frame.width, height: 200)
+        CGSize(width: view.frame.width - 64, height: 350)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        32
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        .init(top: 0, left: 0, bottom: 16, right: 0)
     }
 
-//    private func showApp() {
-//        Task {
-//            do {
-//
-//            } catch {
-//                print(error)
-//            }
-//        }
-//    }
 }
 
