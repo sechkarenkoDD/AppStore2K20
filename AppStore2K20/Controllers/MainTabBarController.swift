@@ -13,38 +13,38 @@ class MainTabBarController: UITabBarController {
         super.viewDidLoad()
         
         viewControllers = [
-            addCreateNavigationController(
+            addViewController(
                 viewController: TodayController(),
                 withTitle: "Today",
-                andImageTabBar: "doc.text.image"),
+                andImageTabBar: "doc.text.image",
+                withNavigation: true),
             
-            addCreateNavigationController(
+            addViewController(
                 viewController: AppsPageController(),
                 withTitle: "Apps",
                 andImageTabBar: "square.stack.3d.up.fill"),
             
-            addCreateNavigationController(
+            addViewController(
                 viewController: AppsSearchController(),
                 withTitle: "Search",
                 andImageTabBar: "magnifyingglass")
         ]
     }
     
-    private func addCreateNavigationController(viewController: UIViewController, withTitle title: String, andImageTabBar image: String) -> UIViewController {
+    private func addViewController(viewController: UIViewController, withTitle title: String, andImageTabBar image: String, withNavigation navigationControllerHiden: Bool = false) -> UIViewController {
         
-        let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.navigationBar.prefersLargeTitles = true
-        
-        viewController.navigationItem.title = title
-        viewController.view.backgroundColor = .white
-        
-        setupTabBarItem(navigationController, title, image)
-        
-        return navigationController
+        if navigationControllerHiden == false {
+            let navigationController = UINavigationController(rootViewController: viewController)
+            navigationController.navigationBar.prefersLargeTitles = true
+            viewController.navigationItem.title = title
+            navigationController.tabBarItem.title = title
+            navigationController.tabBarItem.image = UIImage(systemName: image)
+            return navigationController
+        } else {
+            viewController.tabBarItem.title = title
+            viewController.tabBarItem.image = UIImage(systemName: image)
+            return viewController
+        }
     }
     
-    private func setupTabBarItem(_ navigationView: UINavigationController, _ title: String, _ image: String) {
-        navigationView.tabBarItem.title = title
-        navigationView.tabBarItem.image = UIImage(systemName: image)
-    }
 }

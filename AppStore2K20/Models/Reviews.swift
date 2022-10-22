@@ -17,9 +17,9 @@ struct ReviewFeed: Decodable {
 
 struct Entry: Decodable {
     let author: Author
-    let title: Label
-    let content: Label
-    let rating: Label
+    let title: LabelString
+    let content: LabelString
+    let rating: LabelString
     
     private enum CodingKeys: String, CodingKey {
         case author, title, content
@@ -28,9 +28,9 @@ struct Entry: Decodable {
 }
 
 struct Author: Decodable {
-    let name: Label
+    let name: LabelString
 }
 
-struct Label: Decodable {
+struct LabelString: Decodable {
     let label: String
 }
